@@ -8,7 +8,8 @@
     "datediff": "./cli.js"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/sheabunge/datediff#readme",
   "devDependencies": {
+    "eslint": "^7.25.0",
     "mocha": "^8.3.2",
     "moment": "^2.29.1"
   }

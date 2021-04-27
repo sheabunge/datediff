@@ -1,5 +1,5 @@
 import datediff from '../index.js';
-import {describe} from 'mocha';
+import {describe, it} from 'mocha';
 import moment from 'moment';
 import assert from 'assert';
 
