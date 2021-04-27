@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-
-'use strict';
 
 /**
  * Represents a day, month and year.
@@ -86,7 +83,7 @@ class Date {
  * @param input Input string in the format `DD MM YYYY, DD MM YYYY`
  * @return {string} Output of the form `DD MM YYYY, DD MM YYYY, difference`
  */
-const datediff = (input) => {
+export default function datediff(input) {
 
 	// split the input into the two different dates.
 	let dates = input.split(',', 2).map(s => s.trim());
@@ -99,11 +96,4 @@ const datediff = (input) => {
 
 	// build the output string.
 	return `${dates[0]}, ${dates[1]}, ${dates[1] - dates[0]}`;
-};
-
-if (require.main === module) {
-	// call the datediff() function with the provided command line arguments if accessed directly.
-	console.log(datediff(process.argv.slice(2).join(' ')));
 }
-
-module.exports = {datediff};
