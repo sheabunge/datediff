@@ -13,7 +13,7 @@ export class Date {
 		// split the string into its three parts and convert each to a number.
 		const dates = date.split(/\s/);
 
-		if (dates.length !== 3) {
+		if (3 !== dates.length) {
 			throw new Error('Ensure that date is in the format DD MM YY.');
 		}
 

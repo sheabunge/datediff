@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import process from 'process';
 import datediff from './index.js';
 
 // fetch the command line arguments and join them into a single string.
