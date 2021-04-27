@@ -33,7 +33,9 @@ class Date {
 	 * @param {int} day Calendar day. Must be between 1–31.
 	 */
 	set day(day) {
-		if (day < 1 || day > 31) {
+		day = Number(day);
+
+		if (isNaN(day) || day < 1 || day > 31) {
 			throw 'Day must be between 1–31.';
 		}
 
@@ -53,7 +55,9 @@ class Date {
 	 * @param {int} month Calendar month. Must be between 1–12.
 	 */
 	set month(month) {
-		if (month < 1 || month > 12) {
+		month = Number(month);
+
+		if (isNaN(month) || month < 1 || month > 12) {
 			throw 'Month must be between 1–12.';
 		}
 
@@ -73,7 +77,9 @@ class Date {
 	 * @param {int} year Calendar year. Cannot be earlier than 1990.
 	 */
 	set year(year) {
-		if (year < EARLIEST_YEAR) {
+		year = Number(year);
+
+		if (isNaN(year) || year < EARLIEST_YEAR) {
 			throw `Year must be ${EARLIEST_YEAR} or later.`;
 		}
 
