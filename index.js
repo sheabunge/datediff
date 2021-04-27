@@ -1,9 +1,9 @@
-const EARLIEST_YEAR = 1900; // begin counting years from 1900.
+export const EARLIEST_YEAR = 1900; // begin counting years from 1900.
 
 /**
  * Represents a day, month and year.
  */
-class Date {
+export class Date {
 
 	/**
 	 * Class constructor
@@ -14,7 +14,7 @@ class Date {
 		const dates = date.split(/\s/);
 
 		if (dates.length !== 3) {
-			throw 'Ensure that date is in the format DD MM YY.';
+			throw new Error('Ensure that date is in the format DD MM YY.');
 		}
 
 		[this.day, this.month, this.year] = dates.map(n => Number(n));
@@ -36,7 +36,7 @@ class Date {
 		day = Number(day);
 
 		if (isNaN(day) || day < 1 || day > 31) {
-			throw 'Day must be between 1–31.';
+			throw new Error('Day must be between 1–31.');
 		}
 
 		this._day = day;
@@ -58,7 +58,7 @@ class Date {
 		month = Number(month);
 
 		if (isNaN(month) || month < 1 || month > 12) {
-			throw 'Month must be between 1–12.';
+			throw new Error('Month must be between 1–12.');
 		}
 
 		this._month = month;
@@ -80,7 +80,7 @@ class Date {
 		year = Number(year);
 
 		if (isNaN(year) || year < EARLIEST_YEAR) {
-			throw `Year must be ${EARLIEST_YEAR} or later.`;
+			throw new Error(`Year must be ${EARLIEST_YEAR} or later.`);
 		}
 
 		this._year = year;
@@ -132,7 +132,7 @@ class Date {
 
 			} else if (2 === m) {
 				// February has 28, plus an extra during a leap year.
-				days += 28 + (Date.isLeapYear(this.y) ? 1 : 0);
+				days += 28 + (Date.isLeapYear(this.year) ? 1 : 0);
 
 			} else {
 				// and all the rest have 31.
