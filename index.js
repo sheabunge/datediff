@@ -57,7 +57,7 @@ class Date {
 				// February has 28, plus an extra during a leap year.
 				days += 28 + (Date.isLeapYear(this.y) ? 1 : 0);
 			} else {
-				// and all the rest have 31
+				// and all the rest have 31.
 				days += 31;
 			}
 		}
@@ -96,5 +96,9 @@ const datediff = (input) => {
 	return `${dates[0]}, ${dates[1]}, ${dates[1] - dates[0]}`;
 }
 
-// call the datediff() function with the provided command line arguments.
-console.log(datediff(process.argv.slice(2).join(' ')));
+if (require.main === module) {
+	// call the datediff() function with the provided command line arguments if accessed directly.
+	console.log(datediff(process.argv.slice(2).join(' ')));
+}
+
+module.exports = {datediff};
