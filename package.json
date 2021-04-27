@@ -1,0 +1,19 @@
+{
+  "name": "datediff",
+  "version": "1.0.0",
+  "description": "Calculates the number of days between two dates.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheabunge/datediff.git"
+  },
+  "author": "Shea Bunge <shea@sheabunge.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sheabunge/datediff/issues"
+  },
+  "homepage": "https://github.com/sheabunge/datediff#readme"
+}
