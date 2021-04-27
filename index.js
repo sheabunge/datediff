@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 /**
  * Represents a day, month and year.
  */
@@ -7,10 +9,11 @@ class Date {
 
 	/**
 	 * Class constructor
-	 * @param s Date string, in the format DD MM YYYY.
+	 * @param date Date string, in the format DD MM YYYY.
 	 */
-	constructor(s) {
-		[this.d, this.m, this.y] = s.split(/\s/).map(n => Number(n));
+	constructor(date) {
+		// split the string into its three parts and convert each to a number.
+		[this.d, this.m, this.y] = date.split(/\s/).map(n => Number(n));
 	}
 
 	/**
@@ -18,7 +21,13 @@ class Date {
 	 * @return {string}
 	 */
 	toString() {
-		return `${this.d} ${this.m} ${this.y}`;
+		/** Helper function for padding a number with leading zeros. */
+		const pad = (n, width) => {
+			n = '' + n; // convert from number to string.
+			return '0'.repeat(width - n.length) + n;
+		};
+
+		return `${pad(this.d, 2)} ${pad(this.m, 2)} ${pad(this.y, 4)}`;
 	}
 
 	/**
@@ -41,12 +50,8 @@ class Date {
 
 		// count up the days from the earliest known year to this date's year.
 		for (let year = EARLIEST_YEAR; year < this.y; year++) {
-			days += 365;
-
 			// leap years have an additional day.
-			if (Date.isLeapYear(year)) {
-				days++;
-			}
+			days += 365 + (Date.isLeapYear(year) ? 1 : 0);
 		}
 
 		for (let month = 1; month < this.m; month++) {
@@ -94,7 +99,7 @@ const datediff = (input) => {
 
 	// build the output string.
 	return `${dates[0]}, ${dates[1]}, ${dates[1] - dates[0]}`;
-}
+};
 
 if (require.main === module) {
 	// call the datediff() function with the provided command line arguments if accessed directly.
