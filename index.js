@@ -1,3 +1,4 @@
+const EARLIEST_YEAR = 1900; // begin counting years from 1900.
 
 /**
  * Represents a day, month and year.
@@ -6,11 +7,77 @@ class Date {
 
 	/**
 	 * Class constructor
-	 * @param date Date string, in the format DD MM YYYY.
+	 * @param {string} date Date string, in the format DD MM YYYY.
 	 */
 	constructor(date) {
 		// split the string into its three parts and convert each to a number.
-		[this.d, this.m, this.y] = date.split(/\s/).map(n => Number(n));
+		const dates = date.split(/\s/);
+
+		if (dates.length !== 3) {
+			throw 'Ensure that date is in the format DD MM YY.';
+		}
+
+		[this.day, this.month, this.year] = dates.map(n => Number(n));
+	}
+
+	/**
+	 * Retrieve the day number.
+	 * @return {int}
+	 */
+	get day() {
+		return this._day;
+	}
+
+	/**
+	 * Set the day number
+	 * @param {int} day Calendar day. Must be between 1–31.
+	 */
+	set day(day) {
+		if (day < 1 || day > 31) {
+			throw 'Day must be between 1–31.';
+		}
+
+		this._day = day;
+	}
+
+	/**
+	 * Retrieve the month number.
+	 * @return {int}
+	 */
+	get month() {
+		return this._month;
+	}
+
+	/**
+	 * Set the day number.
+	 * @param {int} month Calendar month. Must be between 1–12.
+	 */
+	set month(month) {
+		if (month < 1 || month > 12) {
+			throw 'Month must be between 1–12.';
+		}
+
+		this._month = month;
+	}
+
+	/**
+	 * Retrieve the year number.
+	 * @return {int}
+	 */
+	get year() {
+		return this._year;
+	}
+
+	/**
+	 * Set the year number.
+	 * @param {int} year Calendar year. Cannot be earlier than 1990.
+	 */
+	set year(year) {
+		if (year < EARLIEST_YEAR) {
+			throw `Year must be ${EARLIEST_YEAR} or later.`;
+		}
+
+		this._year = year;
 	}
 
 	/**
@@ -24,7 +91,7 @@ class Date {
 			return '0'.repeat(width - n.length) + n;
 		};
 
-		return `${pad(this.d, 2)} ${pad(this.m, 2)} ${pad(this.y, 4)}`;
+		return `${pad(this.day, 2)} ${pad(this.month, 2)} ${pad(this.year, 4)}`;
 	}
 
 	/**
@@ -39,25 +106,28 @@ class Date {
 
 	/**
 	 * Count the total number of days that have passed this year.
-	 * @return {number}
+	 * @return {int}
 	 */
 	countDays() {
-		const EARLIEST_YEAR = 1900; // begin counting years from 1900.
 		let days = 0;
 
 		// count up the days from the earliest known year to this date's year.
-		for (let year = EARLIEST_YEAR; year < this.y; year++) {
+		for (let y = EARLIEST_YEAR; y < this.year; y++) {
 			// leap years have an additional day.
-			days += 365 + (Date.isLeapYear(year) ? 1 : 0);
+			days += 365 + (Date.isLeapYear(y) ? 1 : 0);
 		}
 
-		for (let month = 1; month < this.m; month++) {
+		// count up the days in the months which have passed so far.
+		for (let m = 1; m < this.month; m++) {
+
 			// thirty days hath September, April, June, and November.
-			if ([9, 4, 6, 11].includes(month)) {
+			if ([9, 4, 6, 11].includes(m)) {
 				days += 30;
-			} else if (2 === month) {
+
+			} else if (2 === m) {
 				// February has 28, plus an extra during a leap year.
 				days += 28 + (Date.isLeapYear(this.y) ? 1 : 0);
+
 			} else {
 				// and all the rest have 31.
 				days += 31;
@@ -65,12 +135,12 @@ class Date {
 		}
 
 		// finally add the day component and return the result.
-		return days + this.d - 1;
+		return days + this.day - 1;
 	}
 
 	/**
 	 * Convert the date into a numeric representation.
-	 * @return {number}
+	 * @return {int}
 	 */
 	valueOf() {
 		return this.countDays();
