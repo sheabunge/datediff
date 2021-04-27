@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 /**
  * Represents a day, month and year.
@@ -74,17 +75,26 @@ class Date {
 	}
 }
 
-// fetch the command line arguments and join them into a single string.
-const input = process.argv.slice(2).join(' ');
+/**
+ * Given a pair of dates, calculate the difference between the two dates in days.
+ *
+ * @param input Input string in the format `DD MM YYYY, DD MM YYYY`
+ * @return {string} Output of the form `DD MM YYYY, DD MM YYYY, difference`
+ */
+const datediff = (input) => {
 
-// split into the two different dates.
-let dates = input.split(',', 2).map(s => s.trim());
+	// split the input into the two different dates.
+	let dates = input.split(',', 2).map(s => s.trim());
 
-// convert from strings into Date objects.
-dates = dates.map(d => new Date(d));
+	// convert from strings into Date objects.
+	dates = dates.map(d => new Date(d));
 
-// sort so that the earlier date comes first.
-dates.sort((a, b) => a - b);
+	// sort so that the earlier date comes first.
+	dates.sort((a, b) => a - b);
 
-// output the dates to the console.
-console.log(`${dates[0]}, ${dates[1]}, ${dates[1] - dates[0]}`);
+	// build the output string.
+	return `${dates[0]}, ${dates[1]}, ${dates[1] - dates[0]}`;
+}
+
+// call the datediff() function with the provided command line arguments.
+console.log(datediff(process.argv.slice(2).join(' ')));

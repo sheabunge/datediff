@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Calculates the number of days between two dates.",
   "main": "index.js",
+  "bin": {
+    "datediff": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
