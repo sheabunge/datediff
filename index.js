@@ -156,7 +156,7 @@ export class Date {
 /**
  * Given a pair of dates, calculate the difference between the two dates in days.
  *
- * @param input Input string in the format `DD MM YYYY, DD MM YYYY`
+ * @param {string} input Input string in the format `DD MM YYYY, DD MM YYYY`
  * @return {string} Output of the form `DD MM YYYY, DD MM YYYY, difference`
  */
 export default function datediff(input) {
