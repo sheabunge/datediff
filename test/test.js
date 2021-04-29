@@ -9,8 +9,8 @@ import assert from 'assert';
  *
  * Dates are passed in separately to avoid string splitting/parsing in this process.
  *
- * @param {string} dateString1
- * @param {string} dateString2
+ * @param {string} dateString1 Date in the format DD MM YYYY.
+ * @param {string} dateString2 Date in the format DD MM YYYY.
  */
 const expected = (dateString1, dateString2) => {
 	const DATE_FORMAT = 'DD MM YYYY';
@@ -28,8 +28,8 @@ const expected = (dateString1, dateString2) => {
 
 /**
  * Test two input dates against both functions.
- * @param {string} date1
- * @param {string} date2
+ * @param {string} date1 The first date to compare, in the format DD MM YYYY.
+ * @param {string} date2 The second date to compare, in the format DD MM YYYY.
  */
 const test = (date1, date2) => {
 	assert.strictEqual(datediff(`${date1}, ${date2}`), expected(date1, date2));
@@ -65,7 +65,6 @@ describe('testing datetime()', () => {
 	it('nonexistent date (31 April)', () =>
 		assert.throws(() => datediff('31 04 2000, 30 1 1998'), Error, 'The date 29 02 2009 does not exist.'));
 
-
 	it('invalid month', () =>
 		assert.throws(() => datediff('1 15 2009, 5 15 2009'), Error, 'Month must be between 1–12.'));
 
@@ -77,5 +76,4 @@ describe('testing datetime()', () => {
 
 	it('arbitrary text', () =>
 		assert.throws(() => datediff('DD MM YY, 20 02 2002'), Error, 'Day must be between 1–31.'));
-
 });

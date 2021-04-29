@@ -22,7 +22,7 @@ export class Date {
 
 	/**
 	 * Retrieve the day number.
-	 * @return {int}
+	 * @return {number} Calendar day.
 	 */
 	get day() {
 		return this._day;
@@ -30,7 +30,7 @@ export class Date {
 
 	/**
 	 * Set the day number
-	 * @param {int} day Calendar day. Must be between 1–31.
+	 * @param {number} day Calendar day. Must be between 1–31 inclusive.
 	 */
 	set day(day) {
 		day = Number(day);
@@ -44,7 +44,7 @@ export class Date {
 
 	/**
 	 * Retrieve the month number.
-	 * @return {int}
+	 * @return {number} Calendar month number.
 	 */
 	get month() {
 		return this._month;
@@ -52,7 +52,7 @@ export class Date {
 
 	/**
 	 * Set the day number.
-	 * @param {int} month Calendar month. Must be between 1–12.
+	 * @param {number} month Calendar month. Must be between 1–12 inclusive.
 	 */
 	set month(month) {
 		month = Number(month);
@@ -66,7 +66,7 @@ export class Date {
 
 	/**
 	 * Retrieve the year number.
-	 * @return {int}
+	 * @return {number} Calendar year.
 	 */
 	get year() {
 		return this._year;
@@ -74,7 +74,7 @@ export class Date {
 
 	/**
 	 * Set the year number.
-	 * @param {int} year Calendar year. Cannot be earlier than 1990.
+	 * @param {number} year Calendar year. Cannot be earlier than 1990.
 	 */
 	set year(year) {
 		year = Number(year);
@@ -87,10 +87,20 @@ export class Date {
 	}
 
 	/**
+	 * Determine whether a given year is a leap year.
+	 * @param {number} year Calendar year.
+	 */
+	static isLeapYear(year) {
+		// a leap year occurs whenever the year is divisible by 400, or
+		// whenever it is divisible by 4 and not 100.
+		return 0 === year % 400 || (0 !== year % 100 && 0 === year % 4);
+	}
+
+	/**
 	 * Determine the number of days that should exist in a given month and year.
-	 * @param {int} month
-	 * @param {int} year
-	 * @return {int} number of days in the given month and year.
+	 * @param {number} month Month number between 1–12 inclusive.
+	 * @param {number} year Calendar year.
+	 * @return {number} Number of days in the given month and year.
 	 */
 	static daysInMonth(month, year) {
 
@@ -110,6 +120,7 @@ export class Date {
 
 	/**
 	 * Check if this date is valid (i.e. exists on a calendar).
+	 * @return {boolean} true if the date exists, false otherwise.
 	 */
 	isValidDate() {
 		// ensure that the current day is within the valid range.
@@ -117,8 +128,8 @@ export class Date {
 	}
 
 	/**
-	 * Retrieve a string representation of the date, in the format DD MM YY.
-	 * @return {string}
+	 * Retrieve a string representation of the date, in the format DD MM YYYY.
+	 * @return {string} Date in the format DD MM YYYY.
 	 */
 	toString() {
 		/** Helper function for padding a number with leading zeros. */
@@ -131,18 +142,8 @@ export class Date {
 	}
 
 	/**
-	 * Determine whether a given year is a leap year.
-	 * @param {int} year
-	 */
-	static isLeapYear(year) {
-		// a leap year occurs whenever the year is divisible by 400, or
-		// whenever it is divisible by 4 and not 100.
-		return 0 === year % 400 || (0 !== year % 100 && 0 === year % 4);
-	}
-
-	/**
-	 * Count the total number of days that have passed this year.
-	 * @return {int}
+	 * Count the total number of days that have passed between 1 Jan 1900 and this date.
+	 * @return {number} Number of days.
 	 */
 	countDays() {
 		let days = 0;
@@ -169,7 +170,7 @@ export class Date {
 
 	/**
 	 * Convert the date into a numeric representation.
-	 * @return {int}
+	 * @return {number} Number of days that have passed between 1 Jan 1900 and this date.
 	 */
 	valueOf() {
 		return this.countDays();
@@ -179,8 +180,8 @@ export class Date {
 /**
  * Given a pair of dates, calculate the difference between the two dates in days.
  *
- * @param {string} input Input string in the format `DD MM YYYY, DD MM YYYY`
- * @return {string} Output of the form `DD MM YYYY, DD MM YYYY, difference`
+ * @param {string} input Input string in the format `DD MM YYYY, DD MM YYYY`.
+ * @return {string} Output of the form `DD MM YYYY, DD MM YYYY, difference`.
  */
 export default function datediff(input) {
 
