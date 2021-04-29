@@ -59,6 +59,13 @@ describe('testing datetime()', () => {
 	it('date within latest possible year', () =>
 		test('1 1 2010', '31 12 2010'));
 
+	it('nonexistent date (29 Feb in a non-leap year)', () =>
+		assert.throws(() => datediff('01 01 2009, 29 2 2009'), Error, 'The date 29 02 2009 does not exist.'));
+
+	it('nonexistent date (31 April)', () =>
+		assert.throws(() => datediff('31 04 2000, 30 1 1998'), Error, 'The date 29 02 2009 does not exist.'));
+
+
 	it('invalid month', () =>
 		assert.throws(() => datediff('1 15 2009, 5 15 2009'), Error, 'Month must be between 1–12.'));
 

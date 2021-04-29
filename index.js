@@ -113,7 +113,7 @@ export class Date {
 	 */
 	isValidDate() {
 		// ensure that the current day is within the valid range.
-		return Date.daysInMonth(this.month, this.year) <= this.day;
+		return this.day <= Date.daysInMonth(this.month, this.year);
 	}
 
 	/**
