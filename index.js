@@ -87,6 +87,35 @@ export class Date {
 	}
 
 	/**
+	 * Determine the number of days that should exist in a given month and year.
+	 * @param {int} month
+	 * @param {int} year
+	 * @return {int} number of days in the given month and year.
+	 */
+	static daysInMonth(month, year) {
+
+		// thirty days hath September, April, June, and November.
+		if ([9, 4, 6, 11].includes(month)) {
+			return 30;
+		} else if (2 === month) {
+			// February has 28, plus an extra during a leap year.
+			return 28 + (Date.isLeapYear(year) ? 1 : 0);
+
+		} else {
+			// and all the rest have 31.
+			return 31;
+		}
+	}
+
+	/**
+	 * Check if this date is valid (i.e. exists on a calendar).
+	 */
+	isValidDate() {
+		// ensure that the current day is within the valid range.
+		return Date.daysInMonth(this.month, this.year) <= this.day;
+	}
+
+	/**
 	 * Retrieve a string representation of the date, in the format DD MM YY.
 	 * @return {string}
 	 */
@@ -117,6 +146,11 @@ export class Date {
 	countDays() {
 		let days = 0;
 
+		// ensure the date is valid before proceeding.
+		if (!this.isValidDate()) {
+			throw new Error(`The date ${this.toString()} does not exist`);
+		}
+
 		// count up the days from the earliest known year to this date's year.
 		for (let y = EARLIEST_YEAR; y < this.year; y++) {
 			// leap years have an additional day.
@@ -125,19 +159,7 @@ export class Date {
 
 		// count up the days in the months which have passed so far.
 		for (let m = 1; m < this.month; m++) {
-
-			// thirty days hath September, April, June, and November.
-			if ([9, 4, 6, 11].includes(m)) {
-				days += 30;
-
-			} else if (2 === m) {
-				// February has 28, plus an extra during a leap year.
-				days += 28 + (Date.isLeapYear(this.year) ? 1 : 0);
-
-			} else {
-				// and all the rest have 31.
-				days += 31;
-			}
+			days += Date.daysInMonth(m, this.year);
 		}
 
 		// finally add the day component and return the result.
