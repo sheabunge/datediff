@@ -97,14 +97,15 @@ export class Date {
 		// thirty days hath September, April, June, and November.
 		if ([9, 4, 6, 11].includes(month)) {
 			return 30;
-		} else if (2 === month) {
-			// February has 28, plus an extra during a leap year.
-			return 28 + (Date.isLeapYear(year) ? 1 : 0);
-
-		} else {
-			// and all the rest have 31.
-			return 31;
 		}
+
+		// February has 28, plus an extra during a leap year.
+		if (2 === month) {
+			return 28 + (Date.isLeapYear(year) ? 1 : 0);
+		}
+
+		// and all the rest have 31.
+		return 31;
 	}
 
 	/**
